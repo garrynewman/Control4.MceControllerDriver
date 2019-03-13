@@ -1,0 +1,110 @@
+<devicedata>
+  <version>2</version>
+  <manufacturer>Garry Newman</manufacturer>
+  <model>Mce</model>
+  <search_type>c4:av_gen</search_type>
+  <creator>Garry Newman</creator>
+  <name>Mce Controller</name>
+  <small>devices_sm/C4.gif</small>
+  <large>devices_lg/C4.gif</large>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <copyright>MIT License</copyright>
+  <created>03/08/2019 8:17 PM</created>
+  <modified>03/08/2019 9:30 PM</modified>
+  <proxies qty="1">
+    <proxy proxybindingid="5000" primary="True">media_player</proxy>
+  </proxies>
+  <config>
+    <script file="driver.lua"></script>
+    <properties>
+      <property>
+        <name>Server Address</name>
+        <type>STRING</type>
+        <readonly>false</readonly>
+        <default>192.168.1.1</default>
+      </property>
+      <property>
+        <name>Server Port</name>
+        <type>RANGED_INTEGER</type>
+        <default>5150</default>
+        <minimum>1</minimum>
+        <maximum>999999</maximum>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>State</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>true</readonly>
+      </property>
+    </properties>
+  </config>
+  <connections>
+    <connection>
+      <id>5000</id>
+      <connectionname>media_player</connectionname>
+      <facing>6</facing>
+      <type>2</type>
+      <consumer>false</consumer>
+      <audiosource>false</audiosource>
+      <videosource>false</videosource>
+      <linelevel>false</linelevel>
+      <classes>
+        <class>
+          <classname>MEDIA_PLAYER</classname>
+          <autobind>true</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection>
+      <type>6</type>
+      <id>4000</id>
+      <audiosource>true</audiosource>
+      <videosource>false</videosource>
+      <connectionname>Hdmi Out</connectionname>
+      <facing>1</facing>
+      <consumer>false</consumer>
+      <linelevel>false</linelevel>
+      <classes>
+        <class>
+          <classname>HDMI</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection>
+      <type>5</type>
+      <id>2000</id>
+      <audiosource>false</audiosource>
+      <videosource>true</videosource>
+      <connectionname>Hdmi Out</connectionname>
+      <facing>1</facing>
+      <consumer>false</consumer>
+      <linelevel>false</linelevel>
+      <classes>
+        <class>
+          <classname>HDMI</classname>
+        </class>
+      </classes>
+    </connection>
+  </connections>
+  <capabilities></capabilities>
+  <composer_categories>
+    <category>Controllers</category>
+    <category>Lighting</category>
+    <category>User Interface</category>
+    <category>Audio/Video</category>
+    <category>Motorization</category>
+    <category>Sensors</category>
+    <category>HVAC</category>
+    <category>Security</category>
+    <category>Camera</category>
+    <category>Pool And Spa</category>
+    <category>Storage</category>
+    <category>Unknown</category>
+  </composer_categories>
+  <navigator_categories>
+    <category>Home</category>
+  </navigator_categories>
+</devicedata>

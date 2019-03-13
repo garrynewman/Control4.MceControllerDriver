@@ -1,0 +1,6 @@
+﻿<Driver type="c4z" name="MceController">
+ <Items>
+  <Item type="file" name="driver.xml" />
+  <Item type="file" name="driver.lua" />
+ </Items>
+</Driver>
