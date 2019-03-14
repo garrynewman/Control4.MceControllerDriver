@@ -7,6 +7,7 @@ socket:Option( "nodelay", true )
 
 socket:OnDisconnect( function()
 
+    print( "Server Disconnected" );
     C4:UpdateProperty( "State", "Disconnected" );
     Connect();
 
@@ -14,8 +15,8 @@ end )
 
 socket:OnConnect( function()
 
+    print( "Connnected to server" );
     C4:UpdateProperty( "State", "Connected" );
-    Connect();
 
 end )
 
