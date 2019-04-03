@@ -1,35 +1,59 @@
 
 C4:UpdateProperty( "State", "Unconnected" );
 
-local socket = C4:CreateTCPClient()
-socket:Option( "keepalive", true )
-socket:Option( "nodelay", true )
-
-socket:OnDisconnect( function()
-
-    print( "Server Disconnected" );
-    C4:UpdateProperty( "State", "Disconnected" );
-    Connect();
-
-end )
-
-socket:OnConnect( function()
-
-    print( "Connnected to server" );
-    C4:UpdateProperty( "State", "Connected" );
-
-end )
+connected = false;
 
 function Connect()
-    socket:Connect( Properties[ "Server Address" ], Properties[ "Server Port" ] )
+
+	if ( socket ~= nil ) then return end
+
+	print( "Connecting to " .. Properties[ "Server Address" ] .. ":" .. Properties[ "Server Port" ] );
+	
+    socket = C4:CreateTCPClient()
+    socket:Option( "keepalive", true )
+	socket:Option( "nodelay", true )
+
+	socket:OnConnect(function(client)
+		print("OnConnect")
+	end)
+
+	socket:OnDisconnect(function(client, errCode, errMsg)
+
+		if (errCode ~= 0) then
+			print( "Disconnected with error " .. errCode .. ": " .. errMsg)
+		else
+			print( "Disconnected and no response received")
+		end
+
+		socket = nil
+
+	end)
+
+	socket:OnError(function(client, errCode, errMsg)
+
+		print( "Error " .. errCode .. ": " .. errMsg)
+		socket = nil
+
+	end)
+
+    
+	socket:Connect( Properties[ "Server Address" ], Properties[ "Server Port" ] )
+	
 end
 
-Connect();
+function OnDriverLateInit()
+
+	Connect();
+
+end
+
 
 function ReceivedFromProxy(idBinding, strCommand, tParams)
 
     if ( idBinding == 5000 ) then 
     
+	   Connect();
+	   
 	   if ( strCommand == "ENTER" ) then strCommand = "RETURN" end
 	   if ( strCommand == "PVR" ) then strCommand = "F11" end
 	   if ( strCommand == "CANCEL" ) then strCommand = "ESCAPE" end
