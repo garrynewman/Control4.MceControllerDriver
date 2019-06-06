@@ -1,13 +1,13 @@
-
 C4:UpdateProperty( "State", "Unconnected" );
-
 connected = false;
+socket = nil
 
 function Connect()
 
 	if ( socket ~= nil ) then return end
 
 	print( "Connecting to " .. Properties[ "Server Address" ] .. ":" .. Properties[ "Server Port" ] );
+	C4:UpdateProperty( "State", "Connecting" );
 	
     socket = C4:CreateTCPClient()
     socket:Option( "keepalive", true )
@@ -15,6 +15,7 @@ function Connect()
 
 	socket:OnConnect(function(client)
 		print("OnConnect")
+		C4:UpdateProperty( "State", "Connected" );
 	end)
 
 	socket:OnDisconnect(function(client, errCode, errMsg)
@@ -25,13 +26,14 @@ function Connect()
 			print( "Disconnected and no response received")
 		end
 
+		C4:UpdateProperty( "State", "Disconnected" );
 		socket = nil
 
 	end)
 
 	socket:OnError(function(client, errCode, errMsg)
 
-		print( "Error " .. errCode .. ": " .. errMsg)
+		C4:UpdateProperty( "State", "Disconnected Error " .. errCode .. ": " .. errMsg );
 		socket = nil
 
 	end)
