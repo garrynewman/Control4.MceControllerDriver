@@ -12,6 +12,7 @@ function Connect()
     socket = C4:CreateTCPClient()
     socket:Option( "keepalive", true )
 	socket:Option( "nodelay", true )
+	socket:Option( "linger", true, 60 * 30 )
 
 	socket:OnConnect(function(client)
 		print("OnConnect")
@@ -74,3 +75,17 @@ function OnPropertyChanged(strProperty)
     if ( strProperty == "Server Port" ) then Connect() end
 
 end
+
+--
+-- Refresh the connection every couple of minutes
+-- (the socket seems to go into a zombie state after a while without this)
+--
+if ( killTimer ~= nil ) then killTimer:Cancel(); end
+
+killTimer = C4:SetTimer( 1000 * 120, function(timer, skips)
+
+	C4:UpdateProperty( "State", "Killed" );
+	socket = nil
+	Connect()
+
+end, true )
