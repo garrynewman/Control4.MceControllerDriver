@@ -58,10 +58,11 @@ function ReceivedFromProxy(idBinding, strCommand, tParams)
 	   Connect();
 	   
 	   if ( strCommand == "ENTER" ) then strCommand = "RETURN" end
-	   if ( strCommand == "PVR" ) then strCommand = "F11" end
+	   if ( strCommand == "PVR" ) then strCommand = "M" end
 	   if ( strCommand == "CANCEL" ) then strCommand = "ESCAPE" end
 	   if ( strCommand == "SCAN_REV" ) then strCommand = "Z" end
 	   if ( strCommand == "SCAN_FWD" ) then strCommand = "X" end
+	   if ( strCommand == "MENU" ) then strCommand = "F11" end
     
 	   socket:Write( "VK_" .. strCommand .. "\r" );
     end
